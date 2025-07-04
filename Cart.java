@@ -41,27 +41,11 @@ public class Cart {
         return result;
     }
 
-    public List<String> getProductNames() {
-        List<String> names = new ArrayList<>();
-        for (Product product : items.keySet()) {
-            names.add(product.getName());
-        }
-        return names;
-    }
-
-    public List<Integer> getProductAmounts() {
-        List<Integer> amounts = new ArrayList<>();
-        for (Integer quantity : items.values()) {
-            amounts.add(quantity);
-        }
-        return amounts;
-    }
-
     public String getProductName(Product product) {
         if (items.containsKey(product)) {
             return product.getName();
         }
-        return null; // or throw an exception if preferred
+        return null; 
     }
 
     public Integer getProductAmount(Product product) {

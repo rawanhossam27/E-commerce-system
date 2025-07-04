@@ -8,6 +8,7 @@ public class Checkout {
 
     private double totalWeight = 0;
     private double totalPrice = 0;
+    private int shippingCount = 0;
     public void CheckoutOrder() {
         if (Cart.isEmpty()) {
             throw new IllegalStateException("Cart is empty");
@@ -28,10 +29,11 @@ public class Checkout {
              int quantity = cart.getProductAmount(product);
 
             if (product.isShippable()) {
-                double itemWeight = ((Shippable) product).getWeight(); // cast to access weight
+                double itemWeight = ((Shippable) product).getWeight();
                 System.out.println(quantity + "x " + cart.getProductName(product) + "\t" + (int)(quantity * itemWeight * 1000) + "g");
 
                 totalWeight += quantity * itemWeight;
+                shippingCount++;
             } else {
                 System.out.println(quantity + "x " + cart.getProductName(product));
             }   
@@ -50,4 +52,21 @@ public class Checkout {
             totalPrice += quantity * unitPrice;
         }
         System.out.println("Subtotal" + "\t"+ totalPrice);
+        if (shippingCount > 0) {
+            System.out.println("Shipping" + "\t" + ShippingService.getShippingFees());
+        }
+        System.out.println("Amount" + "\t" + (totalPrice + ShippingService.getShippingFees()));
+        System.out.println("New Balance " + "\t" + (customer.getBalance() - (totalPrice + ShippingService.getShippingFees())));
     }
+    
+    List<Shippable> toShip = new ArrayList<>();
+
+    for (Product product : cart.getItems().keySet()) {
+        if (product.isShippable() && product instanceof Shippable) {
+            toShip.add((Shippable) product);
+        }
+    }
+
+    ShippingService.ship(toShip);
+
+}

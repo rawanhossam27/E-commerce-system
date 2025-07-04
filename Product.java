@@ -6,6 +6,7 @@ public class Product {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+    }
 
     public boolean isExpired(){
         return false; //to be overritten in ExpirableProducts
@@ -37,6 +38,6 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-}   
+ 
     
 }  

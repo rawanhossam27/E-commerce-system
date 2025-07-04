@@ -1,22 +1,23 @@
 public class Checkout {
     private Cart cart;
     private Customer customer;
-    private ShippedProducts shippedProducts;
-    private Product product;
-    private ExpirableProducts expirableProducts;
-    private ShippableProducts shippableProducts;
-
     private double totalWeight = 0;
     private double totalPrice = 0;
     private int shippingCount = 0;
-    public void CheckoutOrder() {
-        if (Cart.isEmpty()) {
+
+    public Checkout(Cart cart, Customer customer) {
+        this.cart = cart;
+        this.customer = customer;
+    }
+
+    public void checkoutOrder() {
+        if (cart.isEmpty()) {
             throw new IllegalStateException("Cart is empty");
         }
-        if (Customer.getBalance() <= 0 || Customer.getBalance() < Cart.getTotalPrice()) {
+        if (customer.getBalance() <= 0 || customer.getBalance() < cart.getTotalPrice()) {
             throw new IllegalStateException("Insufficient balance");
         }
-        for (Product product : cart.items) {
+        for (Product product : cart.getItems().keySet()) {
             if (product.isExpired()) {
                 throw new IllegalStateException("Cannot purchase expired product : " + product.getName());
             }
@@ -57,9 +58,8 @@ public class Checkout {
         }
         System.out.println("Amount" + "\t" + (totalPrice + ShippingService.getShippingFees()));
         System.out.println("New Balance " + "\t" + (customer.getBalance() - (totalPrice + ShippingService.getShippingFees())));
-    }
     
-    List<Shippable> toShip = new ArrayList<>();
+        List<Shippable> toShip = new ArrayList<>();
 
     for (Product product : cart.getItems().keySet()) {
         if (product.isShippable() && product instanceof Shippable) {
@@ -68,5 +68,8 @@ public class Checkout {
     }
 
     ShippingService.ship(toShip);
+
+    }
+
 
 }

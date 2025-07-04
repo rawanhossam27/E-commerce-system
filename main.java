@@ -21,7 +21,7 @@ public class Main {
 
         // Checkout
         try {
-            CheckoutService.checkout(customer, cart);
+            Checkout.checkout(customer, cart);
         } catch (Exception e) {
             System.out.println("Checkout failed: " + e.getMessage());
         }

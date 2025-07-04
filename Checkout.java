@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Checkout {
     private Cart cart;
     private Customer customer;
@@ -60,14 +62,16 @@ public class Checkout {
         System.out.println("New Balance " + "\t" + (customer.getBalance() - (totalPrice + ShippingService.getShippingFees())));
     
         List<Shippable> toShip = new ArrayList<>();
-
-    for (Product product : cart.getItems().keySet()) {
-        if (product.isShippable() && product instanceof Shippable) {
-            toShip.add((Shippable) product);
+        for (Product product : cart.getItems().keySet()) {
+            if (product instanceof Shippable) {
+                toShip.add((Shippable) product);
+            }
         }
-    }
 
-    ShippingService.ship(toShip);
+        if (!toShip.isEmpty()) {
+            ShippingService.ship(toShip);
+        }
+
 
     }
 

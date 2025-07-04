@@ -21,11 +21,7 @@ public class Customer {
         this.name = name;
     }
     public boolean canAfford(double amount) {
-        if (canAfford(amount)) {
-            balance -= amount;
-        } else {
-            throw new IllegalArgumentException("Insufficient balance");
-        }
+        return balance >= amount;
     }
 
     public void purchase(Product product) {

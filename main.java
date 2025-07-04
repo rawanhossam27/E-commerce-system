@@ -4,9 +4,9 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         // Create some products
-        Product cheese = new PerishableProduct("Cheese", 100, 5, LocalDate.now().plusDays(3));
-        Product biscuits = new ShippableProduct("Biscuits", 150, 4, 0.7); // 700g
-        Product tv = new ShippableProduct("TV", 5000, 2, 15.0); // 15kg
+        Product cheese = new ExpirableProducts("Cheese", 100, 5, LocalDate.now().plusDays(3));
+        Product biscuits = new ShippedProducts("Biscuits", 150, 4, 0.7); // 700g
+        Product tv = new ShippedProducts("TV", 5000, 2, 15.0); // 15kg
         Product scratchCard = new Product("Scratch Card", 50, 10); // not shippable
 
         // Create a customer

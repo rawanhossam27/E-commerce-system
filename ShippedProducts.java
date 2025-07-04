@@ -15,8 +15,7 @@ public class ShippedProducts extends Product implements Shippable {
     public double getWeight() {
         return weight;
     }
-    
-    }
+
     @Override
     public boolean isShippable() {
         return true;

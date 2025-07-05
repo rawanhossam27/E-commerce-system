@@ -17,9 +17,7 @@ public class Cart {
     }
 
     public void add(Product product, int quantity) {
-        if (quantity > product.getQuantity()) {
-            throw new IllegalArgumentException("Not enough stock");
-        }
+        
 
         if (items.containsKey(product)) {
             int currentQty = items.get(product);
@@ -59,4 +57,11 @@ public class Cart {
         }
         return total;
     }
+    public void remove(Product product) {
+    if (!items.containsKey(product)) {
+        throw new IllegalArgumentException("Product not in cart");
+    }
+    items.remove(product);
+}
+
 }

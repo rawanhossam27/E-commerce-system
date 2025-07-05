@@ -19,14 +19,18 @@ public class Checkout {
         if (customer.getBalance() <= 0 || customer.getBalance() < cart.getTotalPrice()) {
             throw new IllegalStateException("Insufficient balance");
         }
-        for (Product product : cart.getItems().keySet()) {
+
+        Iterator<Product> iterator = cart.getItems().keySet().iterator(); // using iterator for safe removal of expired products
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
             if (product.isExpired()) {
-                throw new IllegalStateException("Cannot purchase expired product : " + product.getName());
-            }
-            if (product.outOfStock()) {
+                System.out.println("Cannot purchase expired product : " + product.getName());
+                iterator.remove(); // safe removal
+            } else if (product.outOfStock()) {
                 throw new IllegalStateException(product.getName() + " is out of stock");
             }
         }
+
         System.out.println("** Shipment notice **");
         for (Product product : cart.getItems().keySet()) {
              int quantity = cart.getProductAmount(product);

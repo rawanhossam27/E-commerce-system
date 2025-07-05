@@ -17,15 +17,26 @@ public class Cart {
     }
 
     public void add(Product product, int quantity) {
-        
+    int availableStock = product.getQuantity();
 
-        if (items.containsKey(product)) {
-            int currentQty = items.get(product);
-            items.put(product, currentQty + quantity);
-        } else {
-            items.put(product, quantity);
-        }
+    if (availableStock == 0) {
+        System.out.println(product.getName() + " is out of stock and was not added to the cart.");
+        return;
     }
+
+    int finalQty = Math.min(quantity, availableStock);
+
+    if (finalQty < quantity) {
+        System.out.println(product.getName() + " only has " + finalQty + " in stock. Added " + finalQty + " to the cart.");
+    }
+
+    if (items.containsKey(product)) {
+        int currentQty = items.get(product);
+        items.put(product, currentQty + finalQty);
+    } else {
+        items.put(product, finalQty);
+    }
+}
 
     public Map<String, Integer> getProductNamesAndAmounts() {
         Map<String, Integer> result = new HashMap<>();

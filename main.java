@@ -12,7 +12,7 @@ public class Main {
         Product scratchCard = new Product("Scratch Card", 50, 10); // not shippable
 
         // Create a customer
-        Customer customer = new Customer("Ali", 6000);
+        Customer customer = new Customer("Ali", 10000);
 
         // Create a cart and add items
         Cart cart = new Cart();

@@ -26,9 +26,7 @@ public class Checkout {
             if (product.isExpired()) {
                 System.out.println("Cannot purchase expired product : " + product.getName());
                 iterator.remove(); // safe removal
-            } else if (product.outOfStock()) {
-                throw new IllegalStateException(product.getName() + " is out of stock");
-            }
+            } 
         }
 
         System.out.println("** Shipment notice **");

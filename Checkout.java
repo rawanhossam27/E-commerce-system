@@ -24,7 +24,7 @@ public class Checkout {
         while (iterator.hasNext()) {
             Product product = iterator.next();
             if (product.isExpired()) {
-                System.out.println("Cannot purchase expired product : " + product.getName());
+                System.out.println("Cannot purchase expired product : " + product.getName() + " - removing from cart.");
                 iterator.remove(); // safe removal
             } 
         }

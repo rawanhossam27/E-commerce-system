@@ -22,6 +22,7 @@ public class Main {
         // Checkout
         try {
             Checkout checkout = new Checkout(cart, customer);
+            ShippingService.setShippingFees(20.0);
             checkout.checkoutOrder();
         } catch (Exception e) {
             System.out.println("Checkout failed: " + e.getMessage());
